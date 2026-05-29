@@ -4,18 +4,15 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="robots" content="noindex, nofollow" />
-<title>산후조리원 제휴 문의 | 맘솔브 MOM SOLVE</title>
+<title>산후조리원 · 산부인과 제휴 파트너십 | 맘솔브 MOM SOLVE</title>
 
 <!--
 ============================================================
- 개발 핸드오프 노트 (맘솔브 산후조리원 제휴 문의 랜딩)
- - 레퍼런스: ollocdam.com/partner.html (약국 입점 제휴) 구조를 맘솔브 톤으로 재구성
- - 폰트: Noto Sans KR (Google Fonts). 본문/제목 동일 패밀리, weight로 위계
- - 컬러 토큰: :root CSS 변수 참고 (--pink 등)
- - 이미지: .ph (placeholder) 블록 = 실제 사진으로 교체 필요 (data-slot 속성에 용도 표기)
- - 폼: /board 또는 백엔드 엔드포인트로 submit 연결 필요. 현재는 mock(alert)
- - 반응형 분기: 960px(태블릿), 640px(모바일)
- - 컬러/폰트/간격은 자사몰(momsolve.co.kr) 톤 기준
+ 맘솔브 제휴 파트너십 랜딩 — 한 섹션씩 제작 (1) 히어로
+ - 레퍼런스: ollocdam 약국 프리미엄 파트너십 히어로
+ - 대상 확장: 산후조리원 + 산부인과
+ - 폰트: Noto Sans KR / 컬러 토큰: :root 변수
+ - 배경: .hero-bg = 추후 제품 사진으로 교체 (data-slot)
 ============================================================
 -->
 
@@ -27,22 +24,9 @@
   :root{
     --pink:#FF5C8A;
     --pink-deep:#E8447A;
-    --pink-100:#FFE3EC;
-    --pink-50:#FFF4F8;
-    --blush:#FFEFF5;
     --ink:#2A2A30;
-    --body:#5E5E68;
-    --muted:#9A9AA4;
-    --line:#F1E7EC;
     --white:#fff;
-    --card-pink:#FFEFF4;
-    --card-peach:#FFF1E9;
-    --card-blue:#EAF3FB;
-    --card-cream:#FBF6EE;
     --maxw:1200px;
-    --radius:20px;
-    --shadow:0 14px 40px rgba(255,92,138,.12);
-    --shadow-sm:0 6px 20px rgba(42,42,48,.06);
   }
   *{box-sizing:border-box;margin:0;padding:0;}
   html{scroll-behavior:smooth;}
@@ -54,340 +38,271 @@
     -webkit-font-smoothing:antialiased;
   }
   a{text-decoration:none;color:inherit;}
-  img{max-width:100%;display:block;}
-  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;}
-  .eng{font-family:'Noto Sans KR',sans-serif;letter-spacing:.04em;}
 
-  /* ---------- Buttons ---------- */
-  .btn{
-    display:inline-flex;align-items:center;justify-content:center;gap:8px;
-    font-weight:700;border:none;cursor:pointer;border-radius:30px;
-    padding:16px 30px;font-size:16px;transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
-    font-family:inherit;
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    min-height:560px;
+    height:62vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    overflow:hidden;
   }
-  .btn-primary{background:var(--pink);color:#fff;box-shadow:0 10px 24px rgba(255,92,138,.35);}
-  .btn-primary:hover{background:var(--pink-deep);transform:translateY(-2px);}
-  .btn-ghost{background:transparent;color:var(--pink-deep);padding:16px 8px;}
-  .btn-ghost:hover{color:var(--pink);}
-  .btn-sm{padding:11px 20px;font-size:14px;}
-  .btn-lg{padding:21px 48px;font-size:18.5px;border-radius:34px;}
-
-  /* ---------- Header ---------- */
-  header.site{
-    position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);
-    backdrop-filter:saturate(180%) blur(8px);border-bottom:1px solid var(--line);
+  /* 배경 — 추후 제품 사진 교체 자리 */
+  .hero-bg{
+    position:absolute;inset:0;z-index:0;
+    background:
+      linear-gradient(180deg, rgba(20,20,24,.55) 0%, rgba(20,20,24,.35) 45%, rgba(20,20,24,.55) 100%),
+      repeating-linear-gradient(45deg, #3a3a40 0 22px, #34343a 22px 44px);
   }
-  .nav{display:flex;align-items:center;justify-content:space-between;height:74px;}
-  .logo{display:flex;align-items:center;gap:8px;font-weight:900;font-size:22px;letter-spacing:.02em;}
-  .logo .mom{color:var(--pink);}
-  .logo .solve{color:var(--ink);}
-  .logo-mark{height:32px;width:auto;display:block;}
-  .logo-wm{font-weight:900;font-size:21px;letter-spacing:.02em;color:#1b1b1f;}
-  .gnb{display:flex;align-items:center;gap:26px;}
-  .gnb a{font-size:15px;font-weight:500;color:#3A3A42;transition:color .15s;}
-  .gnb a:hover{color:var(--pink);}
-  .gnb-item{position:relative;display:flex;align-items:center;}
-  .gnb-top{display:flex;align-items:center;gap:5px;cursor:pointer;}
-  .gnb-top .caret{font-size:10px;color:#B7B7BE;transition:transform .2s ease,color .2s ease;}
-  .gnb-item:hover .caret{transform:rotate(180deg);color:var(--pink);}
-  .submenu{position:absolute;top:100%;left:50%;transform:translateX(-50%) translateY(10px);
-    background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 14px 34px rgba(42,42,48,.12);
-    padding:10px;min-width:160px;display:flex;flex-direction:column;gap:2px;
-    opacity:0;visibility:hidden;transition:opacity .18s ease, transform .18s ease;z-index:60;}
-  .gnb-item:hover .submenu{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0);}
-  .submenu a{padding:10px 16px;border-radius:9px;font-size:14.5px;font-weight:500;color:#3A3A42;white-space:nowrap;text-align:center;}
-  .submenu a:hover{background:var(--pink-50);color:var(--pink-deep);}
-  .nav-right{display:flex;align-items:center;gap:14px;}
-  .hamburger{display:none;}
-
-  /* ---------- Hero ---------- */
-  .hero{position:relative;overflow:hidden;background:linear-gradient(180deg,#FFE7EF 0%, #FFF4F8 60%, #FFFFFF 100%);}
-  .hero .blob{position:absolute;border-radius:50%;filter:blur(8px);opacity:.55;}
-  .hero .blob.b1{width:320px;height:320px;background:#FFC9DC;top:-60px;right:8%;}
-  .hero .blob.b2{width:180px;height:180px;background:#FFD9E6;bottom:40px;left:4%;opacity:.5;}
-  .hero-inner{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;padding:90px 0 96px;position:relative;z-index:2;}
-  .label-pill{display:inline-flex;align-items:center;gap:6px;background:var(--pink-100);color:var(--pink-deep);
-    font-weight:700;font-size:13px;padding:8px 14px;border-radius:16px;margin-bottom:22px;}
-  .hero h1{font-size:54px;line-height:1.26;font-weight:900;letter-spacing:-.01em;margin-bottom:22px;}
-  .hero p.sub{font-size:17.5px;color:var(--body);line-height:1.75;margin-bottom:34px;}
-  .hero-cta{display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
-  .hero-visual{
-    aspect-ratio:5/4.4;border-radius:28px;background:linear-gradient(145deg,#FFD2E1,#FFE9F0);
-    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;
-    box-shadow:var(--shadow);position:relative;overflow:hidden;
+  /* 플레이스홀더 안내 — 사진 넣으면 삭제 */
+  .hero-bg::after{
+    content:"제품 사진 자리 (배경 이미지 교체)";
+    position:absolute;right:18px;bottom:14px;
+    font-size:12px;letter-spacing:.02em;color:rgba(255,255,255,.45);
+    font-weight:500;
   }
-  .hero-visual .vchip{background:rgba(255,255,255,.85);color:#C76E92;font-weight:500;font-size:15px;padding:9px 16px;border-radius:20px;}
-  .hero-visual small{color:#C98AA3;font-size:12.5px;}
-  .ph{display:flex;align-items:center;justify-content:center;color:#C98AA3;font-size:14px;}
-
-  /* ---------- Section base ---------- */
-  section{padding:88px 0;}
-  .sec-head{text-align:center;max-width:680px;margin:0 auto 52px;}
-  .sec-eyebrow{color:var(--pink);font-weight:700;font-size:14px;letter-spacing:.08em;margin-bottom:12px;}
-  .sec-head h2{font-size:36px;font-weight:900;line-height:1.34;letter-spacing:-.01em;}
-  .sec-head p{margin-top:16px;color:var(--body);font-size:17px;}
-
-  /* ---------- Value band (3) ---------- */
-  .value{background:var(--pink-50);}
-  .value-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
-  .value-card{background:#fff;border-radius:var(--radius);padding:36px 30px;box-shadow:var(--shadow-sm);text-align:center;}
-  .value-card .ico{width:62px;height:62px;margin:0 auto 20px;border-radius:18px;background:var(--pink-100);
-    display:flex;align-items:center;justify-content:center;}
-  .value-card h3{font-size:20px;font-weight:700;margin-bottom:10px;}
-  .value-card p{color:var(--body);font-size:15.5px;}
-
-  /* ---------- Product cards ---------- */
-  .prod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
-  .prod-card{border-radius:var(--radius);overflow:hidden;background:#fff;box-shadow:var(--shadow-sm);transition:transform .15s, box-shadow .15s;}
-  .prod-card:hover{transform:translateY(-4px);box-shadow:var(--shadow);}
-  .prod-thumb{aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;}
-  .prod-thumb.c1{background:var(--card-pink);}
-  .prod-thumb.c2{background:var(--card-blue);}
-  .prod-thumb.c3{background:var(--card-peach);}
-  .prod-thumb .vchip{background:rgba(255,255,255,.8);color:#B07A93;font-size:13.5px;padding:7px 13px;border-radius:16px;}
-  .prod-body{padding:22px 22px 26px;}
-  .prod-body .line{display:inline-block;font-size:12.5px;font-weight:700;color:var(--pink-deep);background:var(--pink-100);padding:4px 10px;border-radius:12px;margin-bottom:12px;}
-  .prod-body h3{font-size:18.5px;font-weight:700;margin-bottom:8px;}
-  .prod-body p{color:var(--body);font-size:14.5px;}
-
-  /* ---------- Benefits (2col) ---------- */
-  .benefit{background:linear-gradient(180deg,#fff, var(--pink-50));}
-  .benefit-grid{display:grid;grid-template-columns:1fr;max-width:760px;margin:0 auto;}
-  .benefit-visual{aspect-ratio:1/.86;border-radius:24px;background:linear-gradient(145deg,#FFE0EB,#FFF1F6);
-    box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;}
-  .benefit-list{display:flex;flex-direction:column;gap:22px;}
-  .benefit-item{display:flex;gap:18px;align-items:flex-start;}
-  .benefit-item .num{flex:0 0 auto;width:44px;height:44px;border-radius:14px;background:var(--pink);color:#fff;
-    display:flex;align-items:center;justify-content:center;font-weight:900;font-size:18px;}
-  .benefit-item h3{font-size:19px;font-weight:700;margin-bottom:6px;}
-  .benefit-item p{color:var(--body);font-size:15.5px;}
-
-  /* ---------- Easy start (3 cards) ---------- */
-  .easy-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
-  .easy-card{border:1px solid var(--line);border-radius:var(--radius);padding:40px 30px;text-align:center;transition:border-color .15s, box-shadow .15s;}
-  .easy-card:hover{border-color:var(--pink-100);box-shadow:var(--shadow);}
-  .easy-card .ico{width:72px;height:72px;margin:0 auto 22px;border-radius:50%;background:var(--blush);
-    display:flex;align-items:center;justify-content:center;}
-  .easy-card h3{font-size:19px;font-weight:700;margin-bottom:10px;}
-  .easy-card p{color:var(--body);font-size:15px;}
-
-  /* ---------- Process ---------- */
-  .process{background:var(--ink);color:#fff;}
-  .process .sec-head h2{color:#fff;}
-  .process .sec-head p{color:#C9C9D2;}
-  .process .sec-eyebrow{color:#FF8FB2;}
-  .step-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
-  .step-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:var(--radius);padding:36px 30px;}
-  .step-badge{display:inline-flex;align-items:center;gap:8px;background:var(--pink);color:#fff;font-weight:700;font-size:13px;
-    padding:7px 14px;border-radius:14px;margin-bottom:20px;letter-spacing:.05em;}
-  .step-card h3{font-size:20px;font-weight:700;margin-bottom:10px;}
-  .step-card p{color:#C9C9D2;font-size:15px;}
-  .process-cta{text-align:center;margin-top:60px;}
-
-  /* ---------- Form ---------- */
-  .inquiry{background:var(--pink-50);}
-  .form-card{max-width:760px;margin:0 auto;background:#fff;border-radius:26px;box-shadow:var(--shadow);padding:48px 44px;}
-  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
-  .field{display:flex;flex-direction:column;gap:8px;}
-  .field.full{grid-column:1 / -1;}
-  .field label{font-size:14px;font-weight:700;}
-  .field label .req{color:var(--pink);margin-left:3px;}
-  .field input,.field select,.field textarea{
-    font-family:inherit;font-size:15px;color:var(--ink);
-    border:1.5px solid var(--line);border-radius:12px;padding:13px 15px;background:#fff;transition:border-color .15s;
+  .hero-inner{
+    position:relative;z-index:1;
+    width:100%;max-width:var(--maxw);
+    padding:0 24px;
+    color:#fff;
   }
-  .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--pink);}
-  .field textarea{resize:vertical;min-height:120px;}
-  .agree{display:flex;align-items:flex-start;gap:10px;margin-top:6px;font-size:13.5px;color:var(--body);}
-  .agree input{margin-top:3px;width:17px;height:17px;accent-color:var(--pink);}
-  .form-submit{margin-top:26px;text-align:center;}
-  .form-submit .btn{width:100%;max-width:380px;}
+  .hero-over{
+    font-size:26px;font-weight:500;
+    color:rgba(255,255,255,.92);
+    margin-bottom:8px;
+    text-shadow:0 2px 10px rgba(0,0,0,.35);
+  }
+  .hero-title{
+    font-size:46px;font-weight:900;line-height:1.28;
+    letter-spacing:-.01em;
+    text-shadow:0 2px 14px rgba(0,0,0,.4);
+  }
+  .hero-sub{
+    margin-top:22px;
+    font-size:18px;font-weight:400;
+    color:rgba(255,255,255,.9);
+    text-shadow:0 2px 10px rgba(0,0,0,.35);
+  }
+  .hero-cta{
+    margin-top:34px;
+    display:inline-flex;align-items:center;gap:10px;
+    background:#fff;color:var(--ink);
+    font-weight:700;font-size:17px;
+    padding:16px 32px;border-radius:40px;
+    box-shadow:0 12px 30px rgba(0,0,0,.25);
+    transition:transform .15s ease, box-shadow .15s ease, color .15s ease;
+  }
+  .hero-cta .arr{font-size:18px;line-height:1;color:var(--pink);transition:transform .15s ease;}
+  .hero-cta:hover{transform:translateY(-2px);box-shadow:0 16px 36px rgba(0,0,0,.3);color:var(--pink-deep);}
+  .hero-cta:hover .arr{transform:translateX(3px);}
 
-  /* ---------- Footer ---------- */
-  footer.site{background:#fff;border-top:1px solid var(--line);padding:56px 0 48px;}
-  .foot-top{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;margin-bottom:30px;}
-  .foot-logo{display:flex;align-items:center;gap:8px;font-weight:900;font-size:20px;color:#1b1b1f;}
-  .foot-mark{height:26px;width:auto;display:block;}
-  .foot-logo .mom{color:var(--pink);}
-  .foot-links{display:flex;gap:40px;flex-wrap:wrap;}
-  .foot-col h4{font-size:13px;color:var(--muted);margin-bottom:14px;font-weight:700;letter-spacing:.04em;}
-  .foot-col a{display:block;font-size:14px;color:#4A4A52;margin-bottom:9px;}
-  .foot-col a:hover{color:var(--pink);}
-  .foot-info{border-top:1px solid var(--line);padding-top:24px;color:var(--muted);font-size:13px;line-height:1.9;}
-  .foot-info strong{color:var(--body);font-weight:700;}
-  .foot-cs{font-size:24px;font-weight:900;color:var(--ink);margin-bottom:4px;}
+  /* ---------- (2) PROOF / 유효성분·임상 ---------- */
+  .proof{padding:96px 0 110px;background:var(--white);}
+  .proof .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;}
+  .proof-title{
+    text-align:center;font-weight:900;font-size:40px;line-height:1.32;
+    color:var(--ink);letter-spacing:-.01em;
+  }
+  .proof-title .accent{color:var(--pink);}
+  .proof-sub{
+    text-align:center;margin-top:14px;font-size:16px;color:#7c7c86;font-weight:500;
+  }
+  /* 이미지 영역 3칸 — 제품마다 이미지 1장 교체 */
+  .proof-imgs{
+    margin-top:48px;
+    display:grid;grid-template-columns:repeat(3,1fr);gap:88px;
+  }
+  .proof-cell{
+    border:1px solid #f0eaed;border-radius:16px;overflow:hidden;background:#fff;
+  }
+  .proof-cell img{display:block;width:100%;height:auto;}
+  .proof-grid{
+    margin-top:56px;
+    display:grid;grid-template-columns:repeat(3,1fr);gap:26px;
+  }
+  .pcard{
+    border:1px solid #ececf0;border-radius:14px;background:#fff;
+    padding:30px 26px 28px;
+    box-shadow:0 6px 22px rgba(42,42,48,.05);
+  }
+  /* 제품 이미지 자리 */
+  .pcard-img{
+    position:relative;height:190px;border-radius:10px;
+    background:radial-gradient(120px 120px at 38% 45%, #f3f4f6 0%, #e9eaee 70%, #e2e3e8 100%);
+    display:flex;align-items:center;justify-content:center;
+    overflow:hidden;
+  }
+  .pcard-img .wm{
+    position:absolute;right:14px;top:50%;transform:translateY(-50%);
+    font-style:italic;font-weight:700;font-size:34px;color:rgba(120,130,120,.22);
+    letter-spacing:.02em;pointer-events:none;
+  }
+  .pcard-img .ph{font-size:12px;color:#a6a7ad;font-weight:500;}
+  .pcard-name{margin-top:22px;text-align:center;font-weight:700;font-size:21px;color:var(--ink);}
+  .pcard-desc{margin-top:10px;text-align:center;font-size:14.5px;color:#7c7c86;line-height:1.55;}
+  .pcard-line{height:1px;background:#ececed;margin:24px 0 22px;}
+  /* 임상테스트지 + 성분 */
+  .pcard-clinic{display:flex;gap:16px;align-items:flex-start;}
+  .clinic-sheet{
+    flex:0 0 96px;height:128px;border:1px solid #e6e6ea;border-radius:6px;
+    background:repeating-linear-gradient(0deg,#fafafa 0 7px,#f1f1f3 7px 8px);
+    display:flex;align-items:center;justify-content:center;text-align:center;
+    font-size:9.5px;color:#b3b4ba;font-weight:500;padding:6px;line-height:1.4;
+  }
+  .clinic-specs{flex:1;font-size:13px;color:#5e5e68;line-height:1.85;}
+  .clinic-specs .hl{display:block;margin-top:8px;color:var(--pink-deep);font-weight:700;font-size:12.5px;line-height:1.5;}
+  .clinic-note{margin-top:10px;font-size:10px;color:#b3b4ba;}
 
-  /* ---------- Responsive ---------- */
+  /* ---------- (3) EASY / 쉽게 시작 ---------- */
+  .easy{padding:90px 0 100px;background:#FAFAFB;}
+  .easy .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;}
+  .easy-title{text-align:center;font-weight:900;font-size:34px;line-height:1.35;color:var(--ink);}
+  .easy-grid{margin-top:60px;display:grid;grid-template-columns:repeat(3,1fr);gap:30px;}
+  .ecard{text-align:center;padding:0 10px;}
+  .ecard-ico{
+    width:120px;height:120px;margin:0 auto 22px;border-radius:30px;
+    background:linear-gradient(160deg,#FFE3EC 0%,#FFF4F8 100%);
+    display:flex;align-items:center;justify-content:center;font-size:50px;
+    box-shadow:0 10px 26px rgba(255,92,138,.12);
+  }
+  .ecard-name{font-weight:700;font-size:18px;color:var(--ink);}
+  .ecard-desc{margin-top:9px;font-size:14px;color:#8a8a92;line-height:1.6;}
+
+  /* ---------- (4) PROCESS / 입점 절차 ---------- */
+  .process{padding:100px 0;background:var(--white);}
+  .process .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;
+    display:grid;grid-template-columns:1fr 1.15fr;gap:60px;align-items:center;}
+  .process-lead h2{font-weight:900;font-size:34px;line-height:1.4;color:var(--ink);}
+  .process-lead .desc{margin-top:20px;font-size:15.5px;color:#6f6f78;line-height:1.75;}
+  .process-lead .note{margin-top:18px;font-size:12.5px;color:#a6a7ad;}
+  .steps{display:flex;flex-direction:column;gap:0;}
+  .step{
+    display:flex;align-items:center;gap:18px;
+    background:#FFF4F8;border:1px solid #FFE3EC;border-radius:14px;
+    padding:22px 26px;
+  }
+  .step-badge{
+    flex:0 0 auto;background:var(--pink);color:#fff;font-weight:700;font-size:13px;
+    padding:7px 15px;border-radius:30px;letter-spacing:.02em;
+  }
+  .step-text{font-size:16px;font-weight:600;color:var(--ink);}
+  .step-text small{display:block;font-weight:400;font-size:12px;color:#a6a7ad;margin-top:3px;}
+  .step-arrow{align-self:center;color:#FFB9CF;font-size:20px;line-height:1;margin:8px 0;text-align:center;}
+
+  /* ---------- 반응형 ---------- */
   @media (max-width:960px){
-    .hero-inner{grid-template-columns:1fr;gap:40px;padding:64px 0 72px;}
-    .hero h1{font-size:42px;}
-    .value-grid,.prod-grid,.easy-grid,.step-grid{grid-template-columns:1fr 1fr;}
-    .benefit-grid{grid-template-columns:1fr;gap:36px;}
-    .sec-head h2{font-size:30px;}
+    .hero-title{font-size:36px;}
+    .hero-over{font-size:22px;}
+    .proof-title{font-size:32px;}
+    .proof-grid{grid-template-columns:1fr;max-width:460px;margin-left:auto;margin-right:auto;}
+    .proof-imgs{grid-template-columns:1fr;max-width:420px;margin-left:auto;margin-right:auto;}
   }
   @media (max-width:640px){
-    .wrap{padding:0 18px;}
-    .gnb{display:none;}
-    .hamburger{display:flex;}
-    .nav-right .btn{display:none;}
-    .hero h1{font-size:34px;}
-    .hero p.sub{font-size:16px;}
-    section{padding:60px 0;}
-    .value-grid,.prod-grid,.easy-grid,.step-grid{grid-template-columns:1fr;}
-    .sec-head{margin-bottom:36px;}
-    .sec-head h2{font-size:26px;}
-    .form-card{padding:32px 22px;}
-    .form-grid{grid-template-columns:1fr;}
-    .btn{width:100%;}
-    .hero-cta{gap:10px;}
-    .foot-top{flex-direction:column;gap:28px;}
+    .hero{height:auto;min-height:auto;padding:96px 0;}
+    .hero-over{font-size:18px;}
+    .hero-title{font-size:27px;line-height:1.35;}
+    .hero-sub{font-size:15px;}
+    .hero-cta{font-size:15px;padding:14px 26px;}
+    .hero-bg::after{font-size:10px;right:12px;bottom:10px;}
+    .proof{padding:70px 0 80px;}
+    .proof-title{font-size:25px;}
+  }
+  @media (max-width:960px){
+    .easy-grid{grid-template-columns:1fr;gap:40px;max-width:420px;margin-left:auto;margin-right:auto;}
+    .process .wrap{grid-template-columns:1fr;gap:36px;}
+    .easy-title{font-size:28px;}
+    .process-lead h2{font-size:28px;}
+  }
+  @media (max-width:640px){
+    .easy{padding:64px 0 70px;}
+    .easy-title{font-size:23px;}
+    .ecard-ico{width:100px;height:100px;font-size:42px;}
+    .process{padding:64px 0;}
+    .process-lead h2{font-size:23px;}
+    .step{padding:18px 20px;gap:14px;}
+    .step-text{font-size:14.5px;}
   }
 </style>
 </head>
 <body>
 
-<!-- ===================== HEADER ===================== -->
-<header class="site">
-  <div class="wrap nav">
-    <a class="logo" href="#">
-      <img src="momsolve-mark.png" alt="MOM SOLVE" class="logo-mark" />
-      <span class="logo-wm">MOM SOLVE</span>
-    </a>
-    <nav class="gnb">
-      <a href="#">브랜드 스토리</a>
-      <div class="gnb-item">
-        <a href="#" class="gnb-top">임산부 케어 <span class="caret">▾</span></a>
-        <div class="submenu">
-          <a href="#">바디케어</a>
-          <a href="#">스킨케어</a>
-          <a href="#">착색&amp;기미케어</a>
-          <a href="#">산후조리원</a>
+  <!-- ===== (1) HERO ===== -->
+  <section class="hero">
+    <div class="hero-bg" data-slot="hero-bg / 제품 사진으로 교체"></div>
+    <div class="hero-inner">
+      <p class="hero-over">산모의 첫 케어, 맘솔브</p>
+      <h1 class="hero-title">산후조리원 · 산부인과<br />프리미엄 파트너십</h1>
+      <p class="hero-sub">맘솔브와 함께하는 제휴 파트너십을 시작해보세요.</p>
+      <a href="#contact" class="hero-cta">파트너 문의하기 <span class="arr">›</span></a>
+    </div>
+  </section>
+
+  <!-- ===== (2) PROOF / 유효성분·임상 ===== -->
+  <section class="proof">
+    <div class="wrap">
+      <h2 class="proof-title"><span class="accent">여성가족부 장관상 수상</span>,<br />임산부 프리미엄 뷰티</h2>
+      <div class="proof-imgs">
+        <div class="proof-cell"><img src="img/product-1-teunsaren.png" alt="튼사렌 임산부 살성크림" /></div>
+        <div class="proof-cell"><img src="img/product-2-momsaren.png" alt="몸사렌 양배추 크림" /></div>
+        <div class="proof-cell"><img src="img/product-3-bebesolve.png" alt="베베솔브 베이비 크림" /></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== (3) EASY / 쉽게 시작 ===== -->
+  <section class="easy">
+    <div class="wrap">
+      <h2 class="easy-title">모든 산후조리원·산부인과가,<br />쉽게 시작할 수 있도록</h2>
+      <div class="easy-grid">
+        <div class="ecard">
+          <div class="ecard-ico">📋</div>
+          <h3 class="ecard-name">간편 발주 시스템</h3>
+          <p class="ecard-desc">한 번이면 끝나는<br />간편 발주 시스템을 제공합니다.</p>
         </div>
-      </div>
-      <a href="#">베이비 케어</a>
-      <a href="#">세트할인</a>
-      <a href="#">조리원 입점</a>
-    </nav>
-    <div class="nav-right">
-      <a href="#inquiry" class="btn btn-primary btn-sm">산후조리원 제휴 문의</a>
-      <button class="hamburger btn-sm" aria-label="메뉴" style="background:transparent;border:none;cursor:pointer;">
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#2A2A30" stroke-width="2"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg>
-      </button>
-    </div>
-  </div>
-</header>
-
-<!-- ===================== HERO ===================== -->
-<section class="hero" style="padding:0;">
-  <span class="blob b1"></span><span class="blob b2"></span>
-  <div class="wrap hero-inner">
-    <div class="hero-text">
-      <span class="label-pill">♥ MOM SOLVE × 산후조리원 제휴</span>
-      <h1>산모의 첫 케어,<br/>맘솔브와 함께</h1>
-      <p class="sub">출산 직후 가장 예민한 산모의 피부.<br/>
-        맘솔브 튼살·살성 케어를 산후조리원에서 먼저 만나게 하세요.<br/>
-        조리원과 맘솔브가 함께 산모 만족도를 높입니다.</p>
-      <div class="hero-cta">
-        <a href="#inquiry" class="btn btn-primary btn-lg">산후조리원 제휴 문의하기</a>
-      </div>
-    </div>
-    <div class="hero-visual" data-slot="히어로 메인 비주얼 (제품+산모 케어 이미지)">
-      <span class="vchip">제품 · 산모 케어 이미지</span>
-      <small>(개발 시 실제 이미지로 교체)</small>
-    </div>
-  </div>
-</section>
-
-
-<!-- ===================== PRODUCT LINEUP ===================== -->
-<section class="product">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="sec-eyebrow">LINEUP</div>
-      <h2>산후조리원에 맞춘<br/>맘솔브 케어 라인업</h2>
-      <p>산모와 신생아가 함께 안심하고 쓰는 맘솔브 대표 제품을 제안합니다.</p>
-    </div>
-    <div class="prod-grid">
-      <div class="prod-card">
-        <div class="prod-thumb c1"><span class="vchip">제품 이미지</span></div>
-        <div class="prod-body"><span class="line">튼사렌</span><h3>살성크림</h3><p>임신·출산기 튼살을 위한 집중 보습 케어.</p></div>
-      </div>
-      <div class="prod-card">
-        <div class="prod-thumb c2"><span class="vchip">제품 이미지</span></div>
-        <div class="prod-body"><span class="line">몸사렌</span><h3>양배추 크림</h3><p>출산 후 예민한 산모 가슴을 위한 진정 케어.</p></div>
-      </div>
-      <div class="prod-card">
-        <div class="prod-thumb c3"><span class="vchip">제품 이미지</span></div>
-        <div class="prod-body"><span class="line">베베솔브</span><h3>아기 살성크림</h3><p>신생아와 함께 쓰는 순하고 안전한 케어.</p></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<!-- ===================== PROCESS ===================== -->
-<section class="process">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="sec-eyebrow">PROCESS</div>
-      <h2>복잡한 절차 없이,<br/>바로 시작합니다</h2>
-      <p>빠르고 정돈된 절차로 맘솔브 산후조리원 파트너가 되어보세요.</p>
-    </div>
-    <div class="step-grid">
-      <div class="step-card">
-        <span class="step-badge">STEP 1</span>
-        <h3>제휴 문의</h3>
-        <p>아래 문의 폼으로 산후조리원 정보를 남겨주세요.</p>
-      </div>
-      <div class="step-card">
-        <span class="step-badge">STEP 2</span>
-        <h3>상담 · 조건 협의</h3>
-        <p>담당자가 연락드려 제휴 조건과 혜택을 안내합니다.</p>
-      </div>
-      <div class="step-card">
-        <span class="step-badge">STEP 3</span>
-        <h3>제휴 체결 · 납품 시작</h3>
-        <p>계약 후 제품 비치와 산모 케어 프로그램을 시작합니다.</p>
-      </div>
-    </div>
-    <div class="process-cta">
-      <a href="#" class="btn btn-primary btn-lg">산후조리원 제휴 문의하기</a>
-    </div>
-  </div>
-</section>
-
-
-<!-- ===================== FOOTER ===================== -->
-<footer class="site">
-  <div class="wrap">
-    <div class="foot-top">
-      <div>
-        <div class="foot-logo"><img src="momsolve-mark.png" alt="MOM SOLVE" class="foot-mark" /><span>MOM SOLVE</span></div>
-        <p style="margin-top:14px;color:var(--muted);font-size:14px;">산모의 첫 케어, 맘솔브</p>
-      </div>
-      <div class="foot-links">
-        <div class="foot-col">
-          <h4>SHOP</h4>
-          <a href="#">브랜드 스토리</a><a href="#">전체상품</a><a href="#">세트할인</a><a href="#">맘솔브 후기</a>
+        <div class="ecard">
+          <div class="ecard-ico">🏥</div>
+          <h3 class="ecard-name">최소 수량 제휴 가능</h3>
+          <p class="ecard-desc">소량 발주부터 가능한<br />부담 없는 제휴 프로그램을 제공합니다.</p>
         </div>
-        <div class="foot-col">
-          <h4>SUPPORT</h4>
-          <a href="#">공지사항</a><a href="#">FAQ</a><a href="#">이용약관</a><a href="#">개인정보처리방침</a>
-        </div>
-        <div class="foot-col">
-          <h4>고객센터</h4>
-          <div class="foot-cs">070-8126-6070</div>
-          <p style="color:var(--muted);font-size:13px;">평일 09~12시 · 13~16시 (토·일·공휴일 휴무)</p>
+        <div class="ecard">
+          <div class="ecard-ico">🎧</div>
+          <h3 class="ecard-name">본사 전담 CS 진행</h3>
+          <p class="ecard-desc">운영에만 집중하세요.<br />CS는 본사가 책임집니다.</p>
         </div>
       </div>
     </div>
-    <div class="foot-info">
-      <strong>주식회사 아몽제이랩</strong> &nbsp;|&nbsp; 대표 홍지훈 &nbsp;|&nbsp; 사업자등록번호 576-86-03468 &nbsp;|&nbsp; 통신판매신고 2024-용인기흥-4841<br/>
-      주소 경기 용인시 수지구 풍덕천동 677, 101호 &nbsp;|&nbsp; hosting by Cafe24<br/>
-      <span style="display:inline-block;margin-top:10px;">COPYRIGHT © 맘솔브 ALL RIGHTS RESERVED.</span>
+  </section>
+
+  <!-- ===== (4) PROCESS / 입점 절차 ===== -->
+  <section class="process">
+    <div class="wrap">
+      <div class="process-lead">
+        <h2>복잡한 절차 없이,<br />바로 제휴 가능합니다.</h2>
+        <p class="desc">파트너 전용 프로그램과 안내 자료를 함께 제공합니다.<br />빠르고 정돈된 절차로 맘솔브 파트너가 되어보세요.</p>
+        <p class="note">* 프리미엄 파트너십은 제휴처 전용으로, 일반 유통은 진행하지 않습니다.</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <span class="step-badge">STEP 1</span>
+          <span class="step-text">맘솔브 파트너 신청 클릭</span>
+        </div>
+        <div class="step-arrow">⌄</div>
+        <div class="step">
+          <span class="step-badge">STEP 2</span>
+          <span class="step-text">기관 정보 등록 및 서류 첨부</span>
+        </div>
+        <div class="step-arrow">⌄</div>
+        <div class="step">
+          <span class="step-badge">STEP 3</span>
+          <span class="step-text">파트너십 체결 및 샘플 발송<small>* 샘플 비용 0원</small></span>
+        </div>
+      </div>
     </div>
-  </div>
-</footer>
+  </section>
 
 </body>
 </html>
