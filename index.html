@@ -193,8 +193,9 @@
   .process{padding:124px 0;background:var(--white);}
   .process .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;
     display:grid;grid-template-columns:1fr 1.15fr;gap:72px;align-items:center;}
-  .process-lead h2{font-weight:900;font-size:42px;line-height:1.35;color:var(--ink);}
-  .process-lead .desc{margin-top:22px;font-size:17px;color:#6f6f78;line-height:1.75;}
+  .process-lead,.steps{min-width:0;}
+  .process-lead h2{font-weight:900;font-size:42px;line-height:1.35;color:var(--ink);word-break:keep-all;}
+  .process-lead .desc{margin-top:22px;font-size:17px;color:#6f6f78;line-height:1.75;word-break:keep-all;}
   .process-lead .note{margin-top:18px;font-size:12.5px;color:#a6a7ad;}
   .steps{display:flex;flex-direction:column;gap:0;}
   .step{
@@ -253,6 +254,8 @@
     .ecard-ico{width:100px;height:100px;font-size:42px;}
     .process{padding:64px 0;}
     .process-lead h2{font-size:23px;}
+    .process-lead .desc{font-size:13.5px;line-height:1.7;margin-top:16px;}
+    .process-lead .note{font-size:11px;}
     .step{padding:18px 20px;gap:14px;}
     .step-text{font-size:14.5px;}
   }
